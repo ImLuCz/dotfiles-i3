@@ -1,0 +1,134 @@
+# i3-wm CONFIG FILE 
+#AUTHOR: github.com/ImLuCz
+
+# Mod key
+set $mod Mod4
+
+# Font
+font pango:JetBrains Mono 10
+
+# AUTOSTART APPS
+# Bar 
+exec --no-startup-id pkill polybar; polybar mybar &
+
+exec --no-startup-id picom --config ~/.config/picom/picom.conf
+exec --no-startup-id nm-applet
+exec --no-startup-id xfce4-power-manager
+# Wallpaper
+exec --no-startup-id feh --bg-scale ~/Pictures/wp/wallpaper.png 
+exec --no-startup-id flameshot
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+# auto tiling
+exec_always --no-startup-id ~/.config/i3/autotiling
+# night light
+exec --no-startup-id redshift
+
+# Launcher
+bindsym $mod+d exec i3-dmenu-desktop
+
+# Terminal
+bindsym $mod+Return exec alacritty 
+
+# App shortcuts
+bindsym $mod+e exec nemo
+bindsym $mod+b exec firefox 
+
+# Screenshot
+bindsym Print exec flameshot gui
+
+# Lock screen
+bindsym $mod+Control+l exec i3lock -c 000000
+
+# Audio
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle 
+
+# Workspace navigation with superior vim keybinds
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# Layout
+bindsym $mod+a split v
+bindsym $mod+s split h
+bindsym $mod+f fullscreen toggle
+bindsym $mod+space focus mode_toggle
+bindsym $mod+Shift+space floating toggle
+
+# Quit focused window
+bindsym $mod+q kill
+
+# Force quit focused window
+bindsym $mod+Shift+q exec xkill 
+
+# Exit, reload, restart
+bindsym $mod+Control+e exit
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+r restart 
+
+# Workspaces
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5 
+
+# Move focused window to workspace
+bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+5 move container to workspace 5
+
+# Toggle between previous and current workspaces
+bindsym $mod+Tab workspace back_and_forth
+
+# i3blocks status bar
+bar {
+	mode invisible
+}
+
+# G A P S
+gaps inner 10
+gaps outer 5 
+
+# Nord Colors
+set $nord0 #2E3440
+set $nord1 #3B4252
+set $nord2 #434C5E
+set $nord3 #4C566A
+set $nord4 #D8DEE9
+set $nord5 #E5E9F0
+set $nord6 #ECEFF4
+set $nord7 #8FBCBB
+set $nord8 #88C0D0
+set $nord9 #81A1C1
+set $nord10 #5E81AC
+set $nord11 #BF616A
+set $nord12 #D08770
+set $nord13 #EBCB8B
+set $nord14 #A3BE8C
+set $nord15 #B48EAD
+
+# Window colors
+client.focused          $nord9   $nord3   $nord4   $nord6
+client.focused_inactive $nord1   $nord3   $nord4   $nord5
+client.unfocused        $nord1   $nord3   $nord4   $nord5
+client.urgent           $nord11  $nord3   $nord6   $nord6
+client.placeholder      $nord0   $nord0   $nord4   $nord6
+
+# Window wrapper
+for_window [class=".*"] border none 
